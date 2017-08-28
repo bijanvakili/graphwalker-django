@@ -2,7 +2,6 @@
 This converts django_extensions graph_models JSON output to graphwalker JSON format
 """
 
-# TODO Support both python 2 and 3
 import hashlib
 import json
 import sys
@@ -18,12 +17,12 @@ MULTIPLICITY_MAP = {
 
 
 def _make_vertex_id(qualified_model_name):
-    return hashlib.sha1(qualified_model_name).hexdigest()
+    return hashlib.sha1(qualified_model_name.encode('utf-8')).hexdigest()
 
 
 def _make_edge_id(source_vertex, dest_vertex, relation):
     return hashlib.sha1(
-        '{}({},{})'.format(relation['type'], source_vertex['id'], dest_vertex['id'])
+        '{}({},{})'.format(relation['type'], source_vertex['id'], dest_vertex['id']).encode('utf-8')
     ).hexdigest()
 
 
@@ -111,7 +110,7 @@ def convert_files(*args):
         django_graph_data = json.load(f)
 
     graphwalker_data = convert(django_graph_data)
-    print json.dumps(graphwalker_data, indent=2)
+    print(json.dumps(graphwalker_data, indent=2))
 
 
 if __name__ == '__main__':

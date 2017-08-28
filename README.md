@@ -6,7 +6,7 @@ Exports Django models to [graphwalker](https://github.com/bijanvakili/graphwalke
 
 ### Requirements
 
-* python 2.7.x
+* python 3
 * [django-extensions](https://github.com/django-extensions/django-extensions)
 
 ### Setup
